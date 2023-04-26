@@ -13,7 +13,7 @@ level = Level(level_map, screen)
 
 
 def draw_window():
-    screen.fill((0, 0, 0))
+    screen.fill((135, 206, 235))
     level.run()
     pygame.display.update()
 

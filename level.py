@@ -44,24 +44,6 @@ class Level:
             self.world_shift = 0
             player.speed = 8
 
-    # def scroll_y(self):
-    #     player = self.player.sprite
-    #     player_y = player.rect.centery
-    #     direction_y = player.direction.y
-    #
-    #     if player_y < screen_height/4 and direction_y < 0:
-    #         self.world_shift_y = 8
-    #         player.gravity = 0.8
-    #
-    #     elif player_y > screen_height - (screen_height/4) and direction_y > 0:
-    #         self.world_shift_y = -8
-    #         player.gravity = 0
-    #
-    #     else:
-    #         self.world_shift_y = 0
-    #         player.gravity = 0.8
-
-
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
@@ -80,9 +62,8 @@ class Level:
 
         if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
             player.on_left = False
-        if player.on_right and (player.rect.right < self.current_x or player.direction.x >= 0):
+        if player.on_right and (player.rect.right > self.current_x or player.direction.x <= 0):
             player.on_right = False
-
 
     def vertical_movement_collision(self):
         player = self.player.sprite
@@ -94,16 +75,17 @@ class Level:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
                     player.on_ground = True
+
                 elif player.direction.y < 0:
                     player.rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceilling = True
+
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
+
         if player.on_ceilling and player.direction.y > 0:
             player.on_ceilling = False
-
-
 
     def run(self):
         self.tiles.update(self.world_shift, self.world_shift_y)
